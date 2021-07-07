@@ -37,7 +37,6 @@ void TrafficLight::waitForGreen()
     auto thisMoment = std::chrono::system_clock::now();
     while (true)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
         if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - thisMoment).count() >= cycleDuration)
         {
             auto msg = _msgQ.receive();
@@ -69,7 +68,7 @@ void TrafficLight::toggleLight()
 // virtual function which is executed in a thread
 void TrafficLight::cycleThroughPhases()
 {
-    const long cycleDuration = 10000; //10 seconds
+    long cycleDuration = std::rand()%(6000 - 4000 + 1 ) + 4000; //random value between 4000 to 6000ms
     auto thisMoment = std::chrono::system_clock::now();
     while (true)
     {
@@ -79,6 +78,7 @@ void TrafficLight::cycleThroughPhases()
             toggleLight();
             _msgQ.send(std::move(_currentPhase));
             thisMoment = std::chrono::system_clock::now();
+            cycleDuration = std::rand()%(6000 - 4000 + 1 ) + 4000;//another random value between 4000 to 6000ms
         }
 
     }
