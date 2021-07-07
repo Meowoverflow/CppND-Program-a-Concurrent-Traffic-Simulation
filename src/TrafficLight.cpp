@@ -37,12 +37,10 @@ void TrafficLight::waitForGreen()
     auto thisMoment = std::chrono::system_clock::now();
     while (true)
     {
-        if (std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now() - thisMoment).count() >= cycleDuration)
-        {
-            auto msg = _msgQ.receive();
-            if ( msg == TrafficLightPhase::green)
-                return;
-        }
+        auto msg = _msgQ.receive();
+        if ( msg == TrafficLightPhase::green)
+            return;
+
     }
 }
 
