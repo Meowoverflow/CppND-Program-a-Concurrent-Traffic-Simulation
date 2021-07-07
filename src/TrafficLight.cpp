@@ -13,6 +13,7 @@ T MessageQueue<T>::receive()
     _msgQCondVar.wait(uLock, [this] { return !_queue.empty(); });
     T msg = std::move(_queue.back());
     _queue.pop_back();
+    _queue.clear();
     return msg;
 }
 
