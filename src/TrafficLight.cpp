@@ -34,8 +34,6 @@ TrafficLight::TrafficLight() : _currentPhase(TrafficLightPhase::red){ }
 
 void TrafficLight::waitForGreen()
 {
-    const long cycleDuration = 1; //1 ms
-    auto thisMoment = std::chrono::system_clock::now();
     while (true)
     {
         auto msg = _msgQ.receive();
